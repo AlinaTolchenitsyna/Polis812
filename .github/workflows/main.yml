@@ -31,6 +31,9 @@ jobs:
           npx playwright install-deps
           npx playwright test --reporter=json,html
 
+      - name: Check test results directory
+        run: ls -R test-results
+
       - name: Upload JSON test results as artifact
         uses: actions/upload-artifact@v4
         with:
