@@ -28,11 +28,8 @@ jobs:
           
       - name: Run Playwright tests
         run: |
-          npx playwright install-deps
-          npx playwright test --reporter=json,html
-
-      - name: Check test results directory
-        run: ls -R test-results
+         npx playwright install-deps
+         npx playwright test --reporter=json --reporter=html
 
       - name: Upload JSON test results as artifact
         uses: actions/upload-artifact@v4
