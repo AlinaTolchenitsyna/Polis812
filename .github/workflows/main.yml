@@ -1,0 +1,42 @@
+name: Playwright Test Workflow
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-playwright-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22.14.0'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          
+      - name: Run Playwright tests
+        run: |
+          npx playwright install-deps
+          npx playwright test --reporter=json > test-results.json
+          
+      - name: Upload test results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results.json
+          
+      - name: Upload Playwright video as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-video
+          path: test-results/**/*.webm
