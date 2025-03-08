@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '22.14.0'
 
@@ -27,7 +27,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           npx playwright install-deps
-          npx playwright test --reporter=list --debug > test-results.json
+          npx playwright test --reporter=json > test-results.json
           
       - name: Upload test results as artifact
         uses: actions/upload-artifact@v4
