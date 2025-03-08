@@ -30,13 +30,13 @@ jobs:
           npx playwright test --reporter=json > test-results.json
           
       - name: Upload test results as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: playwright-test-results
           path: test-results.json
           
       - name: Upload Playwright video as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: playwright-video
           path: test-results/**/*.webm
