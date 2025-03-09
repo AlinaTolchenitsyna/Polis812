@@ -31,6 +31,11 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    timeout: 60000, 
+    expect: {
+      timeout: 60000, 
+    },
   },
 
   /* Configure projects for major browsers */
