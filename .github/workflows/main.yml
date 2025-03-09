@@ -15,11 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Clear Cache
-        run: |
-          rm -rf ~/.cache
-          rm -rf ~/.npm
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,7 +29,7 @@ jobs:
       - name: Run Playwright tests
         run: |
          npx playwright install-deps
-         npx playwright test --workers=4 --reporter=json --reporter=html
+         npx playwright test --config=playwright.config.js --workers=4 --reporter=json --reporter=html
 
       - name: Upload JSON test results as artifact
         uses: actions/upload-artifact@v4
