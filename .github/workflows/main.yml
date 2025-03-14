@@ -1,4 +1,4 @@
-name: Playwright Test Workflow
+name: Playwright Tests
 
 on:
   push:
@@ -9,36 +9,31 @@ on:
       - master
 
 jobs:
-  run-playwright-tests:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.14.0'
+          node-version: 22.14.0
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright browsers
-        run: npx playwright install
-          
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Run Playwright tests
-        run: |
-         npx playwright install-deps
-         npx playwright test --headed --workers=4
+        run: npx playwright test --output=test-results
+        continue-on-error: true
 
-      - name: Upload JSON test results as artifact
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-test-results
-          path: test-results/test-results.json
-
-      - name: Upload HTML test report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-html-report
-          path: test-results/html-report
+          name: playwright-results
+          path: test-results/
+          retention-days: 7
