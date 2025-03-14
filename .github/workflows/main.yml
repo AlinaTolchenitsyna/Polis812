@@ -30,15 +30,3 @@ jobs:
         run: |
          npx playwright install-deps
          npx playwright test --workers=4
-
-      - name: Upload JSON test results as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-test-results
-          path: test-results/test-results.json
-
-      - name: Upload HTML test report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-html-report
-          path: test-results/html-report
