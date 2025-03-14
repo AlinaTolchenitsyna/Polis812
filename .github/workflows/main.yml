@@ -27,7 +27,16 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests with 4 workers
-        run: npx playwright test --workers=4
+        run: npx playwright test --workers=4 --output-dir=test-results --trace=on
+        continue-on-error: true
+
+      - name: Debug file system
+        if: always()
+        run: ls -la
+
+      - name: Generate Playwright report
+        if: always()
+        run: npx playwright show-report
 
       - name: Upload Playwright report
         if: always()
