@@ -35,10 +35,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-test-results
-          path: test-results
+          path: test-results/test-results.json
 
       - name: Upload HTML test report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: playwright-html-report
-          path: playwright-report
+          path: test-results/html-report
