@@ -179,12 +179,33 @@ test('Проверка подписки по e-mail', async ({ page }) => {
   await expect(emailInput).toBeVisible();
   await expect(emailInput).toBeEnabled();
 
-  await emailInput.fill('example@gmail.com');
-
   const submitButton = page.locator('.submit-btn');
   await expect(submitButton).toBeVisible();
   await expect(submitButton).toBeEnabled();
 
+  const invalidEmails = [
+    'plainaddress',
+    '@missingusername.com',
+    'username@.com',
+    'username@domain',
+    'user name@domain.com',
+    'username@domain..com'
+  ];
+
+  for (const email of invalidEmails) {
+    await emailInput.fill(email);
+    await submitButton.click();
+    
+    const errorMessage = page.locator('.error-message'); 
+    if (await errorMessage.isVisible()) {
+      await expect(errorMessage).toBeVisible();
+    } else {
+      await expect(submitButton).toBeDisabled();
+    }
+  }
+
+  await emailInput.fill('example@gmail.com');
+  await expect(submitButton).toBeEnabled();
   await submitButton.click();
 
   const successMessage = page.locator('.swal2-confirm.swal2-styled');
