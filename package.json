@@ -2,7 +2,9 @@
   "name": "polis812",
   "version": "1.0.0",
   "main": "Polis812Testing.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test --reporter=json,html"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
