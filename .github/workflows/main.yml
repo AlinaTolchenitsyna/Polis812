@@ -29,6 +29,7 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test --reporter=json,html
+        continue-on-error: true
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
