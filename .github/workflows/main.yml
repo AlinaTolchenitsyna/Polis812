@@ -27,12 +27,15 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests with 4 workers
-        run: npx playwright test --workers=4 --output-dir=test-results --trace=on
+        run: npx playwright test --workers=4 --output-dir=test-results --trace=on --reporter=html
         continue-on-error: true
 
       - name: Debug file system
         if: always()
-        run: ls -la
+        run: |
+          ls -la
+          ls -la playwright-report || echo "playwright-report не найден"
+          ls -la test-results || echo "test-results не найден"
 
       - name: Generate Playwright report
         if: always()
