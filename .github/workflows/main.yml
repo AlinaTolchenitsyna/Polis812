@@ -27,7 +27,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests with 4 workers
-        run: npx playwright test --workers=4 --output-dir=test-results --trace=on --reporter=html
+        run: npx playwright test --workers=4 --reporter=html
         continue-on-error: true
 
       - name: Debug file system
